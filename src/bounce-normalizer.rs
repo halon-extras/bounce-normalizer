@@ -48,7 +48,7 @@ pub extern "C" fn bounce_normalizer(
                 HalonMTA_hsl_value_set(ret, HALONMTA_HSL_TYPE_STRING as i32, output.as_ptr() as *mut std::ffi::c_void, 0);
             }
             Err(_e) => {
-                // do no
+                // do nothing
             }
         }
 
