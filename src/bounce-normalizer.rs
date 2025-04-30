@@ -23,36 +23,39 @@ pub extern "C" fn bounce_normalizer(
     _args: *mut HalonHSLArguments,
     ret: *mut HalonHSLValue,
 ) {
-    unsafe {
-        // get first argument
-        let arg = HalonMTA_hsl_argument_get(_args, 0);
-        if arg == null_mut() {
-            return
-        }
+    // get first argument
+    let arg: *mut HalonHSLValue;
+    unsafe { arg = HalonMTA_hsl_argument_get(_args, 0); }
+    if arg == null_mut() {
+        return
+    }
 
-        // convert to a string
-        let mut input: *mut c_char = null_mut();
-        let input_ptr: *mut *mut c_char = &mut input;
-        let ok = HalonMTA_hsl_value_get(arg, HALONMTA_HSL_TYPE_STRING as i32, input_ptr as *mut c_void, null_mut());
-        if !ok {
-            return
-        }
-        let input_cstr: &CStr = CStr::from_ptr(input);
-        let input_str = String::from_utf8_lossy(input_cstr.to_bytes()).to_string();
+    // convert to a string
+    let mut input: *mut c_char = null_mut();
+    let input_ptr: *mut *mut c_char = &mut input;
+    let ok: bool;
+    unsafe { ok = HalonMTA_hsl_value_get(arg, HALONMTA_HSL_TYPE_STRING as i32, input_ptr as *mut c_void, null_mut()); }
+    if !ok {
+        return
+    }
+    let input_cstr: &CStr;
+    unsafe { input_cstr = CStr::from_ptr(input); }
+    let input_str = String::from_utf8_lossy(input_cstr.to_bytes()).to_string();
 
-        let tokenizer = Tokenizer::new().expect("Failed to create tokenizer");
-        match tokenizer.normalize(input_str.as_str()) {
-            Ok(normalized) => {
-                // set as return value
-                let output: std::ffi::CString = std::ffi::CString::new(normalized).unwrap();
+    let tokenizer = Tokenizer::new().expect("Failed to create tokenizer");
+    match tokenizer.normalize(input_str.as_str()) {
+        Ok(normalized) => {
+            // set as return value
+            let output: std::ffi::CString = std::ffi::CString::new(normalized).unwrap();
+            unsafe {
                 HalonMTA_hsl_value_set(ret, HALONMTA_HSL_TYPE_STRING as i32, output.as_ptr() as *mut std::ffi::c_void, 0);
             }
-            Err(_e) => {
-                // do nothing
-            }
         }
-
+        Err(_e) => {
+            // do nothing
+        }
     }
+
 }
 
 #[no_mangle]
