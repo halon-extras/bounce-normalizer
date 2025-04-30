@@ -263,7 +263,6 @@ checksum = "a8d1add55171497b4705a648c6b583acafb01d58050a51727785f0b2c8e0a2b2"
 [[package]]
 name = "halon_rust_tokenizer"
 version = "1.3.1"
-source = "git+https://github.com/halon/halon_smtp_reason_normalizer.git?tag=v1.3.1#8392cdadc07050424ea50bd6eda5ca46e5936f06"
 dependencies = [
  "serde",
  "serde_json",
