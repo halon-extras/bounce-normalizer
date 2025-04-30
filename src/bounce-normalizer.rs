@@ -35,7 +35,7 @@ pub extern "C" fn bounce_normalizer(
         let input_ptr: *mut *mut c_char = &mut input;
         let ok = HalonMTA_hsl_value_get(arg, HALONMTA_HSL_TYPE_STRING as i32, input_ptr as *mut c_void, null_mut());
         if !ok {
-            libc::free(input as *mut c_void);
+            return
         }
         let input_cstr: &CStr = CStr::from_ptr(input);
         let input_str = String::from_utf8_lossy(input_cstr.to_bytes()).to_string();
