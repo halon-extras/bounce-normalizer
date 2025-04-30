@@ -17,4 +17,4 @@ environment:
   rlimit:
     nofile: 70000
 plugins:
-  - id: rust-example
+  - id: bounce-normalizer

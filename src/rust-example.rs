@@ -16,7 +16,7 @@ use std::{
     ptr::null_mut
 };
 
-pub extern "C" fn rust_example(
+pub extern "C" fn bounce_normalizer(
     _hhc: *mut HalonHSLContext,
     _args: *mut HalonHSLArguments,
     ret: *mut HalonHSLValue,
@@ -47,9 +47,9 @@ pub extern "C" fn rust_example(
 #[no_mangle]
 pub extern "C" fn Halon_hsl_register(hhrc: *mut HalonHSLRegisterContext
 ) -> bool {
-    let func_name = std::ffi::CString::new("rust_example").unwrap();
+    let func_name = std::ffi::CString::new("bounce_normalizer").unwrap();
     unsafe {
-        HalonMTA_hsl_module_register_function(hhrc, func_name.as_ptr(), Some(rust_example));
+        HalonMTA_hsl_module_register_function(hhrc, func_name.as_ptr(), Some(bounce_normalizer));
     }
     return true
 }

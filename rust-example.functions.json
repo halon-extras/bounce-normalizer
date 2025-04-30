@@ -1,6 +1,6 @@
 [
     {
-        "name": "rust_example",
+        "name": "bounce_normalizer",
         "parameters": {
             "required": [
                 {
@@ -10,9 +10,9 @@
             ]
         },
         "returnType": "string",
-        "detail": "rust_example(string data): string",
-        "value": "rust_example($0)",
+        "detail": "bounce_normalizer(string data): string",
+        "value": "bounce_normalizer($0)",
         "documentation": "Return the string input string.",
-        "link": "[Full documentation](https://github.com/halon-extras/rust-example)"
+        "link": "[Full documentation](https://github.com/halon-extras/bounce-normalizer)"
     }
 ]

@@ -1,5 +1,5 @@
 {
-  "name": "rust-example",
+  "name": "bounce-normalizer",
   "context": "..",
   "dockerFile": "./Dockerfile",
   "overrideCommand": false,

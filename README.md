@@ -3,5 +3,5 @@
 This repo contains a simple plugin example written in Rust. Run the build and install task (in VScode run "Tasks: Run Tasks" > "make install") and then
 
 ```
-hsh rust-example.hsl
+hsh bounce-normalizer.hsl
 ```

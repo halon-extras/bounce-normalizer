@@ -1,6 +1,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
 
-PROJECT("rust-example" VERSION 1.0.0)
+PROJECT("bounce-normalizer" VERSION 1.0.0)
 
 # RPM/DEB and CENTOS8/ROCKY9/UBU2004/UBU2204/UBU2404
 IF (EXISTS "${CMAKE_CURRENT_BINARY_DIR}/OSRELEASE.txt")
@@ -42,20 +42,20 @@ IF(EXISTS "/etc/os-release")
 	SET(SYSTEM_NAME "${OS_RELEASE_ID}-${OS_RELEASE_VERSION_ID}-${OS_RELEASE_ARCH}")
 ENDIF()
 
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/target/release/librust_example.so DESTINATION plugins RENAME rust-example.so)
-INSTALL(FILES rust-example.schema.json DESTINATION share/plugins)
-INSTALL(FILES rust-example.functions.json DESTINATION share/plugins)
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/target/release/libbounce_normalizer.so DESTINATION plugins RENAME bounce-normalizer.so)
+INSTALL(FILES bounce-normalizer.schema.json DESTINATION share/plugins)
+INSTALL(FILES bounce-normalizer.functions.json DESTINATION share/plugins)
 
 IF(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.14.0")
-	FILE(CREATE_LINK "/opt/halon/plugins/rust-example.so" "${CMAKE_CURRENT_BINARY_DIR}/rust-example.so.link" SYMBOLIC)
+	FILE(CREATE_LINK "/opt/halon/plugins/bounce-normalizer.so" "${CMAKE_CURRENT_BINARY_DIR}/bounce-normalizer.so.link" SYMBOLIC)
 ELSE()
-	ADD_CUSTOM_TARGET(link_target ALL COMMAND ${CMAKE_COMMAND} -E create_symlink "/opt/halon/plugins/rust-example.so" "${CMAKE_CURRENT_BINARY_DIR}/rust-example.so.link")
+	ADD_CUSTOM_TARGET(link_target ALL COMMAND ${CMAKE_COMMAND} -E create_symlink "/opt/halon/plugins/bounce-normalizer.so" "${CMAKE_CURRENT_BINARY_DIR}/bounce-normalizer.so.link")
 ENDIF()
 
-INSTALL(FILES "${CMAKE_CURRENT_BINARY_DIR}/rust-example.so.link" DESTINATION plugins/autoload/smtpd RENAME rust-example.so)
-INSTALL(FILES "${CMAKE_CURRENT_BINARY_DIR}/rust-example.so.link" DESTINATION plugins/autoload/hsh RENAME rust-example.so)
+INSTALL(FILES "${CMAKE_CURRENT_BINARY_DIR}/bounce-normalizer.so.link" DESTINATION plugins/autoload/smtpd RENAME bounce-normalizer.so)
+INSTALL(FILES "${CMAKE_CURRENT_BINARY_DIR}/bounce-normalizer.so.link" DESTINATION plugins/autoload/hsh RENAME bounce-normalizer.so)
 
-INSTALL(FILES "LICENSE" DESTINATION share/doc/plugins/rust-example)
+INSTALL(FILES "LICENSE" DESTINATION share/doc/plugins/bounce-normalizer)
 
 SET(CMAKE_INSTALL_PREFIX "/opt/halon")
 SET(CPACK_PACKAGING_INSTALL_PREFIX "/opt/halon")
@@ -70,10 +70,10 @@ IF (CPACK_GENERATOR MATCHES "RPM")
 	SET(CPACK_RPM_POST_UNINSTALL_SCRIPT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/postrm")
 ENDIF()
 
-SET(CPACK_PACKAGE_NAME "halon-extras-rust-example")
+SET(CPACK_PACKAGE_NAME "halon-extras-bounce-normalizer")
 SET(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
-SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Halon extras rust-example")
-SET(CPACK_PACKAGE_DESCRIPTION "Halon extras rust-example")
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Halon extras bounce-normalizer")
+SET(CPACK_PACKAGE_DESCRIPTION "Halon extras bounce-normalizer")
 SET(CPACK_PACKAGE_CONTACT "Halon support@halon.io")
 SET(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${PROJECT_VERSION}-${SYSTEM_NAME}")
 

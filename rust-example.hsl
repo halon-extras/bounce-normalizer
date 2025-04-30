@@ -1,2 +1,2 @@
-import { rust_example } from "extras://rust-example";
-echo rust_example("Hello");
+import { bounce_normalizer } from "extras://bounce-normalizer";
+echo bounce_normalizer("Hello");
