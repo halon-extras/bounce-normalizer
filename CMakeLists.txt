@@ -43,7 +43,6 @@ IF(EXISTS "/etc/os-release")
 ENDIF()
 
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/target/release/libbounce_normalizer.so DESTINATION plugins RENAME bounce-normalizer.so)
-INSTALL(FILES bounce-normalizer.schema.json DESTINATION share/plugins)
 INSTALL(FILES bounce-normalizer.functions.json DESTINATION share/plugins)
 
 IF(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.14.0")

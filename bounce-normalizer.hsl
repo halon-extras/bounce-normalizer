@@ -1,0 +1,2 @@
+import { bounce_normalizer } from "extras://bounce-normalizer";
+echo bounce_normalizer("550 5.7.1 5.1.1 The email account that you tried to reach does not exist. Please try double-checking the recipient's email address for typos or unnecessary spaces. For more information, go to  https://support.google.com/mail/?p=NoSuchUser 38308e7fff4ca-317d13bdb9esi41173941fa.224 - gsmtp");

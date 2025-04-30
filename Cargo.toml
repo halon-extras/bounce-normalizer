@@ -12,6 +12,7 @@ crate-type = ["cdylib"]
 
 [dependencies]
 libc = "0.2.155"
+halon_rust_tokenizer= { git = "https://github.com/halon/halon_smtp_reason_normalizer.git", tag = "v1.3.1" }
 
 [build-dependencies]
 bindgen = "0.69.4"

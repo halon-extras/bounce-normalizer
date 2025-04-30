@@ -4,15 +4,15 @@
         "parameters": {
             "required": [
                 {
-                    "name": "data",
+                    "name": "diagnosticcode",
                     "type": "string"
                 }
             ]
         },
         "returnType": "string",
-        "detail": "bounce_normalizer(string data): string",
+        "detail": "bounce_normalizer(string diagnosticcode): string",
         "value": "bounce_normalizer($0)",
-        "documentation": "Return the string input string.",
+        "documentation": "Return the bounce message (diagnosticcode) normalized.",
         "link": "[Full documentation](https://github.com/halon-extras/bounce-normalizer)"
     }
 ]

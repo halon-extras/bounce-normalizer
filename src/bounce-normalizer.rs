@@ -3,6 +3,8 @@
 
 include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 
+use halon_rust_tokenizer::Tokenizer;
+
 #[no_mangle]
 pub extern "C" fn Halon_version(
 ) -> u32 {
@@ -38,9 +40,18 @@ pub extern "C" fn bounce_normalizer(
         let input_cstr: &CStr = CStr::from_ptr(input);
         let input_str = String::from_utf8_lossy(input_cstr.to_bytes()).to_string();
 
-        // set as return value
-        let output = std::ffi::CString::new(input_str).unwrap();
-        HalonMTA_hsl_value_set(ret, HALONMTA_HSL_TYPE_STRING as i32, output.as_ptr() as *mut std::ffi::c_void, 0);
+        let tokenizer = Tokenizer::new().expect("Failed to create tokenizer");
+        match tokenizer.normalize(input_str.as_str()) {
+            Ok(normalized) => {
+                // set as return value
+                let output: std::ffi::CString = std::ffi::CString::new(normalized).unwrap();
+                HalonMTA_hsl_value_set(ret, HALONMTA_HSL_TYPE_STRING as i32, output.as_ptr() as *mut std::ffi::c_void, 0);
+            }
+            Err(_e) => {
+                // do no
+            }
+        }
+
     }
 }
 
