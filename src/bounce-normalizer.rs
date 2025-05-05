@@ -15,8 +15,11 @@ use std::{
     ffi::CStr,
     ffi::c_void,
     ffi::c_char,
-    ptr::null_mut
+    ptr::null_mut,
+    sync::OnceLock,
 };
+
+static tokenizer: OnceLock<Tokenizer> = OnceLock::new();
 
 pub extern "C" fn bounce_normalizer(
     _hhc: *mut HalonHSLContext,
@@ -42,8 +45,10 @@ pub extern "C" fn bounce_normalizer(
     unsafe { input_cstr = CStr::from_ptr(input); }
     let input_str = String::from_utf8_lossy(input_cstr.to_bytes()).to_string();
 
-    let tokenizer = Tokenizer::new().expect("Failed to create tokenizer");
-    match tokenizer.normalize(input_str.as_str()) {
+    let Some(t) = tokenizer.get() else {
+        return;
+    };
+    match t.normalize(input_str.as_str()) {
         Ok(normalized) => {
             // set as return value
             let output: std::ffi::CString = std::ffi::CString::new(normalized).unwrap();
@@ -65,5 +70,12 @@ pub extern "C" fn Halon_hsl_register(hhrc: *mut HalonHSLRegisterContext
     unsafe {
         HalonMTA_hsl_module_register_function(hhrc, func_name.as_ptr(), Some(bounce_normalizer));
     }
+    return true
+}
+
+#[no_mangle]
+pub extern "C" fn Halon_init(_hic: *mut HalonInitContext
+) -> bool {
+    let _ = tokenizer.set(Tokenizer::new().expect("Failed to create tokenizer"));
     return true
 }
