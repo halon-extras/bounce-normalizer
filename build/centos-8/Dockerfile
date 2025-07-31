@@ -18,6 +18,7 @@ RUN yum install -y cmake3 make gcc-c++ rpm-build curl clang
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
+RUN cargo install cargo-3pl --version 0.1.3
 
 RUN echo -n "CENTOS8" > /OSRELEASE.txt
 
