@@ -59,6 +59,11 @@ INSTALL(FILES "LICENSE" DESTINATION share/doc/plugins/bounce-normalizer)
 EXECUTE_PROCESS(COMMAND bash -c "cargo 3pl > ${CMAKE_CURRENT_BINARY_DIR}/LICENSE.thirdparty" WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 INSTALL(FILES "${CMAKE_CURRENT_BINARY_DIR}/LICENSE.thirdparty" DESTINATION share/doc/plugins/bounce-normalizer)
 
+# SBOM
+# "cargo cyclonedx" does not support custom output dir (it always end up in same place as Cargo.lock) so we set a unique name for each platform and copy it to binary dir manually
+EXECUTE_PROCESS(COMMAND bash -c "cargo cyclonedx --format json --override-filename ${OSRELEASE}-sbom && cp ${OSRELEASE}-sbom.json ${CMAKE_CURRENT_BINARY_DIR} && rm ${OSRELEASE}-sbom.json" WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+INSTALL(FILES "${CMAKE_CURRENT_BINARY_DIR}/${OSRELEASE}-sbom.json" DESTINATION share/sbom/plugins RENAME bounce-normalizer.json)
+
 SET(CMAKE_INSTALL_PREFIX "/opt/halon")
 SET(CPACK_PACKAGING_INSTALL_PREFIX "/opt/halon")
 

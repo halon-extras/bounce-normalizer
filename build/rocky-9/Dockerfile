@@ -19,6 +19,7 @@ RUN yum install -y cmake3 make gcc-c++ rpm-build clang
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 RUN cargo install cargo-3pl --version 0.1.3
+RUN cargo install cargo-cyclonedx --version 0.5.7
 
 RUN echo -n "ROCKY9" > /OSRELEASE.txt
 

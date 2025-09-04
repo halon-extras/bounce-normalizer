@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y build-essential cmake git curl llvm-dev
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 RUN cargo install cargo-3pl --version 0.1.3
+RUN cargo install cargo-cyclonedx --version 0.5.7
 
 RUN echo -n "UBU2004" > /OSRELEASE.txt
 
